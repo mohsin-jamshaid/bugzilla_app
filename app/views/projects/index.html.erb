@@ -1,0 +1,29 @@
+
+<div>
+	<div><h1>Projects</h1></div>
+	<% if current_user.manager? %>
+		<div>
+			<%= link_to "Create New Project",new_project_path %>
+		</div><br>
+	<% end %>
+		<div>
+			<table>
+		  		<tr>
+			    <th>Title</th>
+			    </tr>	
+			    <tr></tr> 
+		  		<% @projects.each do |project| %>
+				    <tr>
+				      <td><%= project.title %></td>
+				      <td><%= link_to 'Show Project', project_path(project.id) %></td>
+				      <% if current_user.manager? %>
+				      	<td><%= link_to 'Edit Project', edit_project_path(project.id) %></td>
+			        	<td><%= link_to 'Delete Project', project_path(project.id), method: :delete, data: {confirm: "Are you sure?"} %></td>  
+			          <% end %> 
+				    </tr>
+		     	<% end %>
+		    </table>
+		</div>
+
+	</div>
+</div>

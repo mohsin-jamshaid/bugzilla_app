@@ -1,0 +1,9 @@
+<%= form_for @project do |f| %>
+	<%= f.label :title %><br>
+	<%= f.text_field :title %><br>
+	<%= f.hidden_field :creator_id, :value => current_user.id %>
+	<br>
+	<%= f.submit %>
+<% end %>
+<br>
+<%= link_to "Back", projects_path %>
