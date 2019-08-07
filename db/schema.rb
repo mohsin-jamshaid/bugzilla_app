@@ -10,10 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_26_102750) do
+ActiveRecord::Schema.define(version: 2019_08_05_121205) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "bugs", force: :cascade do |t|
+    t.string "title"
+    t.date "deadline"
+    t.string "screen_shot"
+    t.string "bug_type"
+    t.integer "bug_status"
+    t.bigint "project_id"
+    t.bigint "creator_id"
+    t.bigint "assign_to_id"
+    t.index ["assign_to_id"], name: "index_bugs_on_assign_to_id"
+    t.index ["creator_id"], name: "index_bugs_on_creator_id"
+    t.index ["project_id"], name: "index_bugs_on_project_id"
+  end
 
   create_table "projects", force: :cascade do |t|
     t.string "title"
@@ -46,5 +60,8 @@ ActiveRecord::Schema.define(version: 2019_07_26_102750) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "bugs", "projects"
+  add_foreign_key "bugs", "users", column: "assign_to_id"
+  add_foreign_key "bugs", "users", column: "creator_id"
   add_foreign_key "projects", "users", column: "creator_id"
 end
