@@ -1,13 +1,17 @@
 class Project < ApplicationRecord
-  validates :title, presence: true
-  belongs_to :creator, -> { where(user_type: 'manager') }, class_name: 'User'
-  
+  belongs_to :creator, class_name: 'User'
+
   has_many :user_projects
   has_many :users, through: :user_projects
-  
-  before_create :validate_user_type
+  has_many :bugs, dependent: :destroy
+
+  validates :title, presence: true, uniqueness: true
+
+  validate :validate_user_type
+
+  private
 
   def validate_user_type
-    self.creator.user_type != 'manager' ? false : true
+    errors.add(:user_type, 'not valid to create a project') if !creator.user_type.nil? && creator.user_type != 'manager'
   end
 end

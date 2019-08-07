@@ -1,13 +1,14 @@
 class ProjectsController < ApplicationController
-  before_action :find_project, only: [:edit,:update,:show,:destroy, :assign_project, :remove_from_project]
+  before_action :find_project, except: %i[index new create]
+
+  append_before_action :authorize_project, except: %i[index new create]
+
+  after_action :verify_policy_scoped, only: :index
+
+  append_after_action :authorize_project, only: :new
 
   def index
-    if current_user.manager?
-      @projects = Project.where(creator_id:current_user.id)
-    
-    else
-      @projects = @current_user.projects
-    end
+    @projects = policy_scope(Project)
   end
 
   def new
@@ -15,23 +16,26 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    @project =  Project.new(project_params)
+    @project = Project.new(project_params)
+
+    authorize @project
 
     if @project.save
-      redirect_to projects_path, notice: 'Project has been created successfully'
-    
+      flash[:success] = 'Project has been created successfully'
+      redirect_to projects_path
+
     else
       render 'new'
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @project.update(project_params)
-      redirect_to projects_path, notice: 'Project has been updated successfully'
-  
+      flash[:success] = 'Project has been updated successfully'
+      redirect_to projects_path
+
     else
       render 'edit'
     end
@@ -41,29 +45,38 @@ class ProjectsController < ApplicationController
     @users = User.where.not(user_type: 'manager').includes(:projects)
     @project_users = @project.users
     @nonproject_users = User.where.not(user_type: 'manager', id: @project_users.ids)
+    @bugs = @project.bugs.order('deadline')
   end
 
   def destroy
     @project.destroy
-    redirect_to projects_path, notice: 'Project has been successfully destroyed'
+    flash[:success] = 'Project has been successfully destroyed'
+    redirect_to projects_path
   end
 
   def assign_project
     @project.users << User.find(params[:user_id])
-    redirect_to project_path, notice: 'Project has been successfully assigned to user'
+    flash[:success] = 'Project has been successfully assigned to user'
+    redirect_to project_path
   end
 
   def remove_from_project
     @project.users.destroy(User.find(params[:user_id]))
-    redirect_to project_path, notice: 'User has been successfully removed from Projects'
+    flash[:success] = 'User has been successfully removed from Projects'
+    redirect_to project_path
   end
 
   private
-    def find_project
-      @project = Project.find(params[:id])
-    end
 
-    def project_params
-      params.require(:project).permit(:title, :creator_id)
-    end
+  def find_project
+    @project = Project.find(params[:id])
+  end
+
+  def project_params
+    params.require(:project).permit(:title, :creator_id)
+  end
+
+  def authorize_project
+    authorize @project
+  end
 end

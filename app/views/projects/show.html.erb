@@ -1,32 +1,43 @@
 <h1> Show </h1>
 <p>
   <strong>Title:</strong>
-  <%= @project.title %>
+  <b class= "text-info"><%= @project.title %></b>
 </p>
-<% if current_user.manager? %>
-	<p><%= link_to button_tag('Show Users',id: "show_users"), assign_project_project_path(@project) %></p>
-<% end %>   
-<%= link_to button_tag("Back"), projects_path %>
+<% if current_user.qa? || current_user.developer? %>      
+  <%= render 'bugs/all_bugs' %>
+  <div class= "container">
+    <% if current_user.qa? %>
+      <p><%= link_to button_tag('Create Bug', class: "btn btn-success btn-lg"),new_project_bug_path(@project) %></p>
+    <% end %>
+  </div>
+<% end %>
+<br/>
+<% if policy(@project).update? %>
+  <div class = "table-responsive">
+    <table class="table table-dark table-hover">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>User Type</th>
+        </tr>
+      </thead>
+      <tbody>
+       <% @users.each do |user| %>
+          <tr>
+            <td><%= user.name %></td>
+            <td><%= user.user_type %></td> 
+            <% if user.projects.exists?(@project.id) %>
+              <td><%= link_to button_tag("Remove From Project", class: "btn btn-primary"), remove_from_project_project_path(user_id: user.id), method: :delete , data: {confirm: "Are you sure?"}  %></td>
+              <% else %>
+              <td><%= link_to button_tag("Add To Project", class: "btn btn-success"), assign_project_project_path(user_id: user.id), method: :post %></td>   
+            <% end %> 
+          </tr>
+         <% end %>
+     </tbody>
+    </table>
+  </div>
+<% end %>
+<div class = "container">
+  <%= link_to button_tag("Back", class: "btn btn-primary"), projects_path %>
+</div>
 <br/><br/>
-
-<table id="users">
-		<tr>
-	    	<th>Name</th>
-	    	<th>User Type</th>
-		    <th></th>
-		    <th></th>
-	    </tr>
-	 
-	   <% @users.each do |user| %>
-		    <tr>
-		      <td><%= user.name %></td>
-		      <td><%= user.user_type %></td> 
-		      <% if user.projects.exists?(@project.id) %>
-		      	<td><%= link_to button_tag("Remove From Project"), remove_from_project_project_path(user_id: user.id), method: :delete , data: {confirm: "Are you sure?"}  %></td>
-
-	      	  <% else %>
-		      	<td><%= link_to button_tag("Add To Project"), assign_project_project_path(user_id: user.id), method: :post %></td>   
-		      <% end %> 
-		    </tr>
-       <% end %>
-</table>
