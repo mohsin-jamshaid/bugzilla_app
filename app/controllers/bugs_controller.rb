@@ -3,7 +3,6 @@ class BugsController < ApplicationController
   before_action :find_project, except: :destroy
 
   append_before_action :authorize_bug, except: %i[new index create]
-  append_after_action :authorize_bug, only: :new
 
   def index
     @bugs = @project.bugs.order('deadline')
@@ -13,6 +12,7 @@ class BugsController < ApplicationController
 
   def new
     @bug = @project.bugs.build
+    authorize_bug
   end
 
   def create
@@ -23,7 +23,6 @@ class BugsController < ApplicationController
     if @bug.save
       flash[:success] = 'Bug has been successfully created'
       redirect_to project_bugs_path
-
     else
       render 'new'
     end

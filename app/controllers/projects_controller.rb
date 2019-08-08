@@ -5,14 +5,13 @@ class ProjectsController < ApplicationController
 
   after_action :verify_policy_scoped, only: :index
 
-  append_after_action :authorize_project, only: :new
-
   def index
     @projects = policy_scope(Project)
   end
 
   def new
     @project = Project.new
+    authorize_project
   end
 
   def create
