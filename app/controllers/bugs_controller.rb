@@ -2,8 +2,8 @@ class BugsController < ApplicationController
   before_action :find_bug, except: %i[index new create]
   before_action :find_project, except: :destroy
 
-  append_before_action :authorize_bug, except: %i[new index create]
-  append_after_action :authorize_bug, only: :new
+  append_before_action :authorize_bug_everytime, except: %i[new index create]
+  append_after_action :authorize_bug_everytime, only: :new
 
   def index
     @bugs = @project.bugs.order('deadline')
@@ -84,7 +84,7 @@ class BugsController < ApplicationController
     @project = Project.find(params[:project_id])
   end
 
-  def authorize_bug
+  def authorize_bug_everytime
     authorize @bug
   end
 end
