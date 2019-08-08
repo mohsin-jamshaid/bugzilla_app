@@ -12,6 +12,6 @@ class Project < ApplicationRecord
   private
 
   def validate_user_type
-    errors.add(:user_type, 'not valid to create a project') if !creator.user_type.nil? && creator.user_type != 'manager'
+    errors.add(:user_type, 'not valid to create a project') if creator.user_type && creator.user_type != 'manager'
   end
 end
