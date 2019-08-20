@@ -1,6 +1,6 @@
 class BugsController < ApplicationController
   before_action :find_bug, except: %i[index new create]
-  before_action :find_project, except: :destroy
+  before_action :find_project
 
   append_before_action :authorize_bug, except: %i[new index create]
 
@@ -22,7 +22,7 @@ class BugsController < ApplicationController
 
     if @bug.save
       flash[:success] = 'Bug has been successfully created'
-      redirect_to project_bugs_path
+      redirect_to project_bugs_path(@project)
     else
       render 'new'
     end
@@ -33,7 +33,7 @@ class BugsController < ApplicationController
   def update
     if @bug.update(bug_params)
       flash[:success] = 'Bug has been successfully updated'
-      redirect_to project_bugs_path
+      redirect_to project_bugs_path(@project)
 
     else
       render 'edit'
