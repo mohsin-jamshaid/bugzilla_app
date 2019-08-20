@@ -43,7 +43,7 @@ class BugsController < ApplicationController
   def destroy
     @bug.destroy
     flash[:success] = 'Bug has been successfully destroyed'
-    redirect_to project_bugs_path
+    redirect_to project_bugs_path(@project)
   end
 
   def assign_bug
