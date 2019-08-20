@@ -22,10 +22,10 @@
             <td><%= bug.bug_type %></td>
             <td><%= bug.bug_status %></td>
               
-              <% if current_user.developer? && bug.assign_to == nil %>
+              <% if current_user.developer? && !bug.assign_to && (!bug.resolved? && !bug.completed?) %>
                 <td><%= link_to 'Take Bug', assign_bug_project_bug_path(@project,bug), method: :patch, class: "text text-warning white-link" %></td> 
               
-              <% elsif !bug.initial? %>
+              <% elsif bug.assign_to %>
                 <td><%= bug.assign_to.name %></td>
               
               <% else %>

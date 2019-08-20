@@ -24,7 +24,7 @@ class Bug < ApplicationRecord
   end
 
   def check_assign_to_value
-    errors.add(assign_to_id: "Should be a developer's id") if assign_to_id.present? && assign_to.user_type != 'developer'
+    errors.add(assign_to_id: "Should be a developer's id") if assign_to && !assign_to.developer?
   end
 
   def check_creator_type

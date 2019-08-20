@@ -48,7 +48,7 @@ class BugsController < ApplicationController
 
   def assign_bug
     if @bug.update(assign_to_id: current_user.id)
-      @bug.set_bug_next_state!
+      @bug.set_bug_next_state! unless @bug.started?
       flash[:success] = 'Bug has been successfully assigned to user'
 
     else
