@@ -20,7 +20,7 @@
     
     <div class= "form-group">
       <%= f.label :status %><br>
-      <%= f.select(:bug_status, Bug.bug_statuses.keys.first(1).map {|bug_status| [bug_status.titleize, bug_status]}, {}, class: 'bug_status_comp custom-select date-select') %>
+      <%= f.select(:bug_status, Bug.bug_statuses.keys.first(3).map {|bug_status| [bug_status.titleize, bug_status]}, {}, class: 'bug_status_comp custom-select date-select') %>
     </div>
     
     <div class= "form-group">
