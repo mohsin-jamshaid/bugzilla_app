@@ -48,7 +48,7 @@ class ScreenShotUploader < CarrierWave::Uploader::Base
   end
 
   def content_type_whitelist
-    [%r{ /image\// }]
+    [%r{image/}]
   end
 
   def content_type_blacklist
