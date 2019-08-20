@@ -1,33 +1,8 @@
 <h1> Edit Bug </h1>
+
 <% if policy(@bug).edit? %>
-  <%= form_for [@project,@bug], html:{multipart: true} do |f| %>
-    <%= render "devise/shared/error_messages", resource: @bug %>
-    
-    <div class = "form-group">
-      <%= f.label :title %><br>
-      <%= f.text_field :title, required: true, class: "form-control" %>
-    </div>
-    
-    <div class= "form-group">
-      <%= f.label :deadline %><br>
-      <%= f.date_select :deadline, {order: [:day, :month, :year], start_year: Time.current.year}, class: "custom-select date-select"%>
-    </div>
-    
-    <div class= "form-group">
-      <%= f.label :type %><br>
-      <%= f.select(:bug_type, options_for_select([['Feature', 'feature'], ['Bug', 'bug']],@bug.bug_type), {}, class: "custom-select date-select")%>
-    </div>
-
-    <div class="form-group">
-      <%= f.label :ScreenShot %><br>
-      <%= f.file_field :screen_shot %><br>
-      <%= f.hidden_field :creator_id, :value => current_user.id %>
-    </div>
-
-    <div class="actions">
-      <%= f.submit "Edit Bug", class: "btn btn-primary" %>
-    </div>
+  <%= render 'form' %>
 <% end %>
+
 <br>
 <%= link_to "Back", project_bugs_path(@project) %>
-<% end %>

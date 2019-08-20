@@ -26,3 +26,7 @@ $(document).on 'turbolinks:load', ->
         return
     return
   return
+
+$(document).on 'turbolinks:load', ->
+    $(':submit').addClass 'btn btn-primary'
+    return

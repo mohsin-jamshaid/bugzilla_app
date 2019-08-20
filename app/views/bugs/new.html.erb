@@ -1,3 +1,8 @@
 <h1> Create Bug </h1>
 
-<%= render 'form' %> 
+<% if policy(@bug).create? %>
+  <%= render 'form' %> 
+<% end %>
+
+<br>
+<%= link_to "Back", project_path(@project) %>
