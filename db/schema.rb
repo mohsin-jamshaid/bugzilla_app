@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_05_121205) do
+ActiveRecord::Schema.define(version: 2019_08_21_131137) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 2019_08_05_121205) do
     t.index ["assign_to_id"], name: "index_bugs_on_assign_to_id"
     t.index ["creator_id"], name: "index_bugs_on_creator_id"
     t.index ["project_id"], name: "index_bugs_on_project_id"
+    t.index ["title", "project_id"], name: "index_bugs_on_title_and_project_id", unique: true
   end
 
   create_table "projects", force: :cascade do |t|
