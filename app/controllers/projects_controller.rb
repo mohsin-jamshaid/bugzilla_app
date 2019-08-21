@@ -16,7 +16,7 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    @project = Project.new(project_params)
+    @project = current_user.created_projects.build(project_params)
 
     authorize @project
 
@@ -73,7 +73,7 @@ class ProjectsController < ApplicationController
   end
 
   def project_params
-    params.require(:project).permit(:title, :creator_id)
+    params.require(:project).permit(:title)
   end
 
   def authorize_project
