@@ -1,6 +1,6 @@
 class BugPolicy < ApplicationPolicy
   def index?
-    (user.qa? || user.developer?) && user.projects.exists?(record.first&.project_id)
+    (user.qa? || user.developer?) && user.projects.exists?(record&.id)
   end
 
   def create?

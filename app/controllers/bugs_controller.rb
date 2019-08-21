@@ -7,7 +7,7 @@ class BugsController < ApplicationController
   def index
     @bugs = @project.bugs.order('deadline')
 
-    authorize @bugs
+    authorize @project, policy_class: BugPolicy
   end
 
   def new
@@ -41,9 +41,12 @@ class BugsController < ApplicationController
   end
 
   def destroy
-    @bug.destroy
-    flash[:success] = 'Bug has been successfully destroyed'
-    redirect_to project_bugs_path(@project)
+    if @bug.destroy
+      flash[:success] = 'Bug has been successfully destroyed'
+      redirect_to project_bugs_path(@project)
+    else
+      flash[:success] = 'Bug has not been successfully destroyed'
+    end
   end
 
   def assign_bug
