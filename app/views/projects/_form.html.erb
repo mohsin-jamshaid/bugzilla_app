@@ -1,17 +1,16 @@
 <%= form_for @project do |f| %>
 	<%= render "devise/shared/error_messages", resource: @project %>
-	<div class="form-group">
+	
+  <div class="form-group">
   	<%= f.label :title %><br />
   	<%= f.text_field :title ,autofocus: true, class: "form-control" %>
 		<%= f.hidden_field :creator_id, :value => current_user.id %>
 	</div>	
-	<div class="actions">
-  	<% if !@project.new_record? %>
-  		<%= f.submit "Edit Project", class: "btn btn-primary" %>
-		<% else %>
-			<%= f.submit "Create Project", class: "btn btn-primary" %>
-		<% end %>
+	
+  <div class="actions">
+		<%= f.submit %>
 	</div>
 <% end %>
+
 <br>
 <%= link_to "Back", projects_path %>
