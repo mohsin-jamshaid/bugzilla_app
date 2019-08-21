@@ -42,7 +42,6 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    @users = User.where.not(user_type: 'manager').includes(:projects)
     @project_users = @project.users
     @nonproject_users = User.where.not(user_type: 'manager', id: @project_users.ids)
     @bugs = @project.bugs.order('deadline')

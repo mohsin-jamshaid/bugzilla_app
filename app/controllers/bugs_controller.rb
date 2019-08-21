@@ -12,6 +12,7 @@ class BugsController < ApplicationController
 
   def new
     @bug = @project.bugs.build
+
     authorize_bug
   end
 
@@ -41,12 +42,10 @@ class BugsController < ApplicationController
   end
 
   def destroy
-    if @bug.destroy
-      flash[:success] = 'Bug has been successfully destroyed'
-      redirect_to project_bugs_path(@project)
-    else
-      flash[:success] = 'Bug has not been successfully destroyed'
-    end
+    @bug.destroy
+
+    flash[:success] = 'Bug has been successfully destroyed'
+    redirect_to project_bugs_path(@project)
   end
 
   def assign_bug
@@ -75,7 +74,7 @@ class BugsController < ApplicationController
   private
 
   def bug_params
-    params.require(:bug).permit(:title, :deadline, :screen_shot, :bug_type, :bug_status, :project_id, :creator_id)
+    params.require(:bug).permit(:title, :deadline, :screen_shot, :bug_type, :bug_status, :creator_id)
   end
 
   def find_bug
