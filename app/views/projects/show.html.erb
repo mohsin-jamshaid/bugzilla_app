@@ -27,21 +27,9 @@
         </tr>
       </thead>
       <tbody>
-        <% @project_users.each do |user| %>
-          <tr>
-            <td><%= user.name %></td>
-            <td><%= user.user_type %></td>
-            <td><%= link_to button_tag("Remove From Project", class: "btn btn-primary"), remove_from_project_project_path(user_id: user.id), method: :delete , data: {confirm: "Are you sure?"}  %></td>
-          </tr> 
-        <% end %>
+        <%= render partial: 'project_users', collection: @project_users, as: :user %> 
 
-        <% @nonproject_users.each do |user| %>
-          <tr>
-            <td><%= user.name %></td>
-            <td><%= user.user_type %></td>
-              <td><%= link_to button_tag("Add To Project", class: "btn btn-success"), assign_project_project_path(user_id: user.id), method: :post %></td>
-          </tr>
-        <% end %>
+        <%= render partial: 'non_project_users', collection: @nonproject_users, as: :user %>
      </tbody>
     </table>
   </div>

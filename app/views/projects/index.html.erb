@@ -19,16 +19,7 @@
           </thead> 
           
           <tbody>
-            <% @projects.each do |project| %>
-              <tr>
-                <td><%= project.title %></td>
-                <td><%= link_to 'Show Project', project_path(project.id), class: "text-success white-link" %></td>
-                <% if current_user.manager? %>
-                  <td><%= link_to 'Edit Project', edit_project_path(project.id), class: "text-warning white-link" %></td>
-                  <td><%= link_to 'Delete Project', project_path(project.id), class: "text-info white-link", method: :delete, data: {confirm: "Are you sure?"} %></td>  
-                  <% end %> 
-              </tr>
-            <% end %>
+            <%= render @projects %>
           </tbody>
         </table>
       </div>
@@ -37,5 +28,4 @@
   <% else %>
     <p>You've no projects yet !</p>
   <% end %>
-
 </div>
