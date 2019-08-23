@@ -1,0 +1,30 @@
+<tr>
+  <td><%= bug.title %></td>
+  <td><%= bug.deadline %></td>
+  <td><%= image_tag bug.screen_shot_url(:thumb).to_s %></td>
+  <td><%= bug.bug_type %></td>
+  <td><%= bug.bug_status %></td>
+    
+  <% if current_user.developer? && !bug.assign_to && !bug.resolved? && !bug.completed? %>
+    <td><%= link_to 'Take Bug', assign_bug_project_bug_path(@project,bug), method: :patch, class: "text text-warning white-link" %></td> 
+  
+  <% elsif bug.assign_to %>
+    <td><%= bug.assign_to.name %></td>
+  
+  <% else %>
+    <td>Not Assigned</td>
+  <% end %> 
+  
+  <% if !bug.completed? && !bug.resolved? && current_user.developer? && bug.assign_to == current_user %>
+    <td><%= link_to 'Mark as Resolved', resolve_bug_project_bug_path(@project,bug), method: :patch, class: "text text-success white-link" %></td> 
+  <% end %>
+    
+  <% if (bug.completed? || bug.resolved?)  && current_user.developer? && bug.assign_to == current_user %>
+    <td><%= link_to 'Rework On Bug', assign_bug_project_bug_path(@project,bug), method: :patch, class: "text text-warning white-link" %></td> 
+  <% end %> 
+ 
+  <% if policy(bug).update? %>
+    <td><%= link_to 'Edit Bug', edit_project_bug_path(@project,bug), class: "text text-warning white-link"%></td>
+    <td><%= link_to 'Delete Bug', project_bug_path(@project,bug), method: :delete, data:{confirm: "Are you sure?"}, class: "text text-info white-link" %></td>    
+  <% end %>
+</tr>
