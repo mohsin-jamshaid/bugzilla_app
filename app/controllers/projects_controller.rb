@@ -49,8 +49,15 @@ class ProjectsController < ApplicationController
 
   def destroy
     @project.destroy
-    flash[:success] = 'Project has been successfully destroyed'
-    redirect_to projects_path
+
+    respond_to do |format|
+      format.js
+
+      format.html do
+        flash[:success] = 'Project has been successfully destroyed'
+        redirect_to projects_path
+      end
+    end
   end
 
   def assign_project

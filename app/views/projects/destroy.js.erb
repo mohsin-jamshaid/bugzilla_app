@@ -1,0 +1,7 @@
+$('.del-project').bind('ajax:success',function(){
+  $('#project-<%= @project.id %>').fadeOut(400, function(){
+    $(this).remove();
+  });
+}).bind('ajax:error', function(){
+  alert("Error occurred, cannot delete project");
+});

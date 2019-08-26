@@ -1,9 +1,9 @@
-<tr>
+<tr id="project-<%= project.id %>">
   <td><%= project.title %></td>
   <td><%= link_to 'Show Project', project_path(project.id), class: "text-success white-link" %></td>
 
   <% if current_user.manager? %>
     <td><%= link_to 'Edit Project', edit_project_path(project.id), class: "text-warning white-link" %></td>
-    <td><%= link_to 'Delete Project', project_path(project.id), class: "text-info white-link", method: :delete, data: {confirm: "Are you sure?"} %></td>  
+    <td><%= link_to 'Delete Project', project_path(project.id), class: "text-info white-link del-project", method: :delete, data: {confirm: "Are you sure?", remote: true} %></td>  
   <% end %> 
 </tr>

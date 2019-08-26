@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
   protected
 
@@ -17,6 +18,11 @@ class ApplicationController < ActionController::Base
 
   def user_not_authorized
     flash[:error] = 'You are not authorized to perform this action.'
+    redirect_to(request.referrer || root_path)
+  end
+
+  def record_not_found
+    flash[:error] = 'Invalid search operation occurred!!'
     redirect_to(request.referrer || root_path)
   end
 end
