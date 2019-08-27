@@ -1,6 +1,4 @@
 class Bug < ApplicationRecord
-  attr_accessor :screen_shot_cache
-
   include StateMachine::Bug
 
   mount_uploader :screen_shot, ScreenShotUploader

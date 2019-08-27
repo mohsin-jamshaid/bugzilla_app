@@ -44,6 +44,7 @@ class ProjectsController < ApplicationController
   def show
     @project_users = @project.users
     @nonproject_users = User.where.not(user_type: 'manager', id: @project_users.ids)
+
     @bugs = @project.bugs.order('deadline')
   end
 
@@ -62,12 +63,14 @@ class ProjectsController < ApplicationController
 
   def assign_project
     @project.users << User.find(params[:user_id])
+
     flash[:success] = 'Project has been successfully assigned to user'
     redirect_to project_path
   end
 
   def remove_from_project
     @project.users.destroy(User.find(params[:user_id]))
+
     flash[:success] = 'User has been successfully removed from Projects'
     redirect_to project_path
   end
