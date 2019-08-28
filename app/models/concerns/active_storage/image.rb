@@ -3,7 +3,11 @@ module ActiveStorage
     extend ActiveSupport::Concern
     included do
       def correct_image_type
-        errors.add(:image, 'Image must be a jpeg,png or gif') if image.attached? && !image.content_type.in?(%w[image/jpeg image/png image/gif])
+        errors.add(:image, 'must be a jpeg,png or gif') if image.attached? && !image.content_type.in?(%w[image/jpeg image/png image/gif])
+      end
+
+      def user_image_type
+        errors.add(:avatar, 'must be a jpeg or png') if avatar.attached? && !avatar.content_type.in?(%w[image/jpeg image/png])
       end
 
       def large
@@ -16,6 +20,10 @@ module ActiveStorage
 
       def thumbnail
         image.variant(resize: '50x50')
+      end
+
+      def avatar
+        image.variant(resize: '100x100')
       end
     end
   end
