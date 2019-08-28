@@ -5,7 +5,7 @@ class BugsController < ApplicationController
   append_before_action :authorize_bug, except: %i[new index create]
 
   def index
-    @bugs = @project.bugs.order('deadline')
+    @bugs = @project.bugs.order('deadline').with_attached_image
 
     authorize @project, policy_class: BugPolicy
   end
@@ -74,7 +74,7 @@ class BugsController < ApplicationController
   private
 
   def bug_params
-    params.require(:bug).permit(:title, :deadline, :screen_shot, :bug_type, :bug_status, :creator_id)
+    params.require(:bug).permit(:title, :deadline, :image, :bug_type, :bug_status, :creator_id)
   end
 
   def find_bug

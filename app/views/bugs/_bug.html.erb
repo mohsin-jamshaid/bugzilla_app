@@ -1,7 +1,7 @@
 <tr>
   <td><%= bug.title %></td>
   <td><%= bug.deadline %></td>
-  <td><%= image_tag bug.screen_shot_url(:thumb).to_s %></td>
+  <td><%= image_tag(bug.thumbnail) if bug.image.attached? %></td>
   <td><%= bug.bug_type %></td>
   <td><%= bug.bug_status %></td>
     

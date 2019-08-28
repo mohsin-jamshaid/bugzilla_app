@@ -45,7 +45,7 @@ class ProjectsController < ApplicationController
     @project_users = @project.users
     @nonproject_users = User.where.not(user_type: 'manager', id: @project_users.ids)
 
-    @bugs = @project.bugs.order('deadline')
+    @bugs = @project.bugs.order('deadline').with_attached_image
   end
 
   def destroy

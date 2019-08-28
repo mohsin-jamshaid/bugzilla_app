@@ -1,7 +1,9 @@
 class Bug < ApplicationRecord
   include StateMachine::Bug
 
-  mount_uploader :screen_shot, ScreenShotUploader
+  include ActiveStorage::Image
+
+  has_one_attached :image
 
   belongs_to :project
   belongs_to :assign_to, class_name: 'User', optional: true
@@ -14,6 +16,7 @@ class Bug < ApplicationRecord
   validates :bug_type, presence: true, inclusion: { in: %w[feature bug] }
   validate :check_assign_to_value
   validate :check_creator_type
+  validate :correct_image_type
 
   private
 

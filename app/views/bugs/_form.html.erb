@@ -24,9 +24,7 @@
   
   <div class= "form-group">
     <%= f.label :ScreenShot %><br>
-    <%= image_tag(@bug.screen_shot_url(:thumb)) if @bug.screen_shot? %>
-    <%= f.file_field :screen_shot %>
-    <%= f.hidden_field :screen_shot_cache %>
+    <%= f.file_field :image %>
     <%= f.hidden_field :creator_id, :value => current_user.id %><br><br>
   </div>
   
