@@ -60,11 +60,7 @@ class ProjectsController < ApplicationController
 
   def assign_project
     @project.users << User.find(params[:user_id])
-    respond_to do |format|
-      format.json do
-        render json: { deleted: true }
-      end
-    end
+
     flash[:success] = 'Project has been successfully assigned to user'
     redirect_to project_path
   end

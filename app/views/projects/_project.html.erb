@@ -9,12 +9,10 @@
       <%= link_to edit_project_path(project.id), class: "text-light" do %>
         <i class="far fa-edit"></i>
       <% end %> &nbsp
+
       <%= link_to 'javascript:;', class: "text-light del-project", method: :delete, data: { id: project.id} do %>
         <i class="fa fa-trash" aria-hidden="true"></i>
       <% end %>
     <% end %> 
-
   </td>
-
-  
 </tr>
