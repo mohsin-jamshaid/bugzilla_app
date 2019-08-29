@@ -52,18 +52,19 @@ class ProjectsController < ApplicationController
     @project.destroy
 
     respond_to do |format|
-      format.js
-
-      format.html do
-        flash[:success] = 'Project has been successfully destroyed'
-        redirect_to projects_path
+      format.json do
+        render json: {}
       end
     end
   end
 
   def assign_project
     @project.users << User.find(params[:user_id])
-
+    respond_to do |format|
+      format.json do
+        render json: { deleted: true }
+      end
+    end
     flash[:success] = 'Project has been successfully assigned to user'
     redirect_to project_path
   end

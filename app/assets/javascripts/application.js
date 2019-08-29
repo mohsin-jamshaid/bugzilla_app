@@ -20,3 +20,10 @@
 //= require jquery
 //= require bugs
 //= require devise
+//= require destroy_project
+
+$.ajaxSetup({
+  headers: {
+    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+  }
+});

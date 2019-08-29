@@ -12,6 +12,7 @@
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <%= link_to 'Bugzilla',root_path, class: 'navbar-brand' %>
+
     <% if user_signed_in? %>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -20,12 +21,17 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <%= link_to "Logout",destroy_user_session_path,method: :delete, class: "nav-link" %> 
+            <%= link_to destroy_user_session_path,method: :delete, class: "nav-link" do %> 
+              <i class="fas fa-sign-out-alt"></i>
+            <% end %>
           </li>
           <li class="nav-item">
-            <%= link_to "Edit Profile",edit_user_registration_path, class: "nav-link" %>
+            <%= link_to edit_user_registration_path, class: "nav-link" do %>
+              <i class="fas fa-user-edit"></i>
+            <% end %>
           </li> 
         </ul>
+
         <form class="form-inline my-2 my-lg-0">
          <%= button_tag current_user.email.to_s , class: "btn btn-outline-success my-2 my-sm-0", type: 'button' %>
         </form>

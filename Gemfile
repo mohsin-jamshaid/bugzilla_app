@@ -65,8 +65,9 @@ gem 'bootstrap', '~> 4.3.1'
 gem 'carrierwave'
 gem 'devise'
 gem 'jquery-rails'
-# gem 'mini_magick'
 gem 'pundit'
 gem 'rubocop', '~> 0.74.0', require: false
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
+# gem font-awesome
+gem 'font-awesome-sass', '~> 5.9.0'

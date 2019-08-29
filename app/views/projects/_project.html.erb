@@ -1,9 +1,20 @@
 <tr id="project-<%= project.id %>">
-  <td><%= project.title %></td>
-  <td><%= link_to 'Show Project', project_path(project.id), class: "text-success white-link" %></td>
+  <td><%= project.title.titleize %></td>
+  <td>
+    <%= link_to project_path(project.id), class: "text-light" do %>
+      <i class="far fa-eye"></i>
+    <% end %> &nbsp
+    
+    <% if current_user.manager? %>
+      <%= link_to edit_project_path(project.id), class: "text-light" do %>
+        <i class="far fa-edit"></i>
+      <% end %> &nbsp
+      <%= link_to 'javascript:;', class: "text-light del-project", method: :delete, data: { id: project.id} do %>
+        <i class="fa fa-trash" aria-hidden="true"></i>
+      <% end %>
+    <% end %> 
 
-  <% if current_user.manager? %>
-    <td><%= link_to 'Edit Project', edit_project_path(project.id), class: "text-warning white-link" %></td>
-    <td><%= link_to 'Delete Project', project_path(project.id), class: "text-info white-link del-project", method: :delete, data: {confirm: "Are you sure?", remote: true} %></td>  
-  <% end %> 
+  </td>
+
+  
 </tr>

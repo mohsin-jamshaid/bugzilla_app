@@ -23,7 +23,7 @@ module ActiveStorage
       end
 
       def avatar
-        image.variant(resize: '100x100')
+        image.variant(resize: '40x40')
       end
     end
   end
