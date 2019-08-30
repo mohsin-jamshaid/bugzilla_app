@@ -44,31 +44,34 @@ class BugsController < ApplicationController
   def destroy
     @bug.destroy
 
-    flash[:success] = 'Bug has been successfully destroyed'
-    redirect_to project_bugs_path(@project)
+    respond_to do |format|
+      format.js { render layout: false }
+      format.html { redirect_to project_bugs_path(@project) }
+    end
   end
 
   def assign_bug
     if @bug.update(assign_to_id: current_user.id)
       @bug.set_bug_next_state! unless @bug.started?
-      flash[:success] = 'Bug has been successfully assigned to user'
+      @msg = ['success', 'Bug has been successfully assigned']
 
     else
-      flash[:alert] = 'Cannot take bug deadline already passed'
+      @msg = ['danger', 'Cannot take bug deadline already passed']
     end
 
-    redirect_to project_bugs_path(@project)
+    respond_to do |format|
+      format.js { render layout: false }
+      format.html { redirect_to project_bugs_path(@project) }
+    end
   end
 
   def resolve_bug
-    if @bug.set_bug_next_state!
-      flash[:success] = 'Bug is successfully resolved'
+    @msg = @bug.set_bug_next_state! ? ['success', 'Bug is successfully resolved'] : ['danger', 'Cannot resolve bug you may have pass the deadline,wait for QA to edit the deadline']
 
-    else
-      flash[:alert] = 'Cannot resolve bug you may have pass the deadline,wait for QA to edit the deadline'
+    respond_to do |format|
+      format.js { render 'assign_bug.js.erb', layout: false }
+      format.html { redirect_to project_bugs_path(@project) }
     end
-
-    redirect_to project_bugs_path(@project)
   end
 
   private

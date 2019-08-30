@@ -1,0 +1,12 @@
+$("#flash").find('.alert').remove();
+
+var str = '<div class="alert alert-<%= @msg[0] %> alert-dismissible fade show" role="alert">'
+                +'<%= @msg[1] %>'
+                +'<button type="button" class="close" data-dismiss="alert" aria-label="Close">'
+                +'<span aria-hidden="true">&times;</span></button></div>' ;
+
+if ("<%= @msg[0] %>" === "success"){ 
+  $(".bugs").find("#bug-<%= @bug.id %>").replaceWith("<%= j render(partial: 'bug', locals: { bug: @bug } ) %>"); 
+}
+
+$("#flash").prepend(str);  

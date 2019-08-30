@@ -12,6 +12,8 @@ $( document ).on('turbolinks:load', function() {
         $("#project-" + x).fadeOut(300, function(){
           $(this).remove();
 
+          $("#flash").find('.alert').remove();
+
           const str = '<div class="alert alert-success alert-dismissible fade show" role="alert">'
                         +'Project has been successfully destroyed'
                         +'<button type="button" class="close" data-dismiss="alert" aria-label="Close">'
