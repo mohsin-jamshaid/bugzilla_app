@@ -59,17 +59,27 @@ class ProjectsController < ApplicationController
   end
 
   def assign_project
-    @project.users << User.find(params[:user_id])
+    @user = User.find(params[:user_id])
 
-    flash[:success] = 'Project has been successfully assigned to user'
-    redirect_to project_path
+    @project.users << @user
+
+    respond_to do |format|
+      format.js { render layout: false }
+
+      format.html { redirect_to project_path }
+    end
   end
 
   def remove_from_project
-    @project.users.destroy(User.find(params[:user_id]))
+    @user = User.find(params[:user_id])
 
-    flash[:success] = 'User has been successfully removed from Projects'
-    redirect_to project_path
+    @project.users.destroy(@user)
+
+    respond_to do |format|
+      format.js { render layout: false }
+
+      format.html { redirect_to project_path }
+    end
   end
 
   private

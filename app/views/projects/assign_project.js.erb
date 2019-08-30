@@ -1,0 +1,13 @@
+$("#user-<%= @user.id %>").fadeOut(300, function(){
+  $(this).remove();
+
+  $(".users").prepend("<%= j (render partial: 'project_users', locals: {user: @user}) %>")
+  
+  $("#flash").find(".alert").remove();
+
+  const str = '<div class="alert alert-success alert-dismissible fade show" role="alert">'
+                        +'Project has been successfully assigned to user'
+                        +'<button type="button" class="close" data-dismiss="alert" aria-label="Close">'
+                        +'<span aria-hidden="true">&times;</span></button></div>'
+  $("#flash").prepend(str);
+});

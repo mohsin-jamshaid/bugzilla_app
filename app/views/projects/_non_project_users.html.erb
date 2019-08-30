@@ -1,5 +1,5 @@
-<tr>
+<tr id= "user-<%=user.id%>">
   <td><%= user.name.titleize %></td>
   <td><%= user.qa? ? user.user_type.upcase : user.user_type.titleize %></td>
-  <td><%= link_to button_tag("Add To Project", class: "btn btn-success"), assign_project_project_path(user_id: user.id), method: :post %></td>
+  <td><%= link_to button_tag("Add To Project", class: "btn btn-success"), assign_project_project_path(user_id: user.id), method: :post, remote: true %></td>
 </tr>
