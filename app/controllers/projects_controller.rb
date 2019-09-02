@@ -42,8 +42,8 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    @project_users = @project.users
-    @nonproject_users = User.where.not(user_type: 'manager', id: @project_users.ids)
+    @project_users = @project.users.with_attached_avatar
+    @nonproject_users = User.where.not(user_type: 'manager', id: @project_users.ids).with_attached_avatar
 
     @bugs = @project.bugs.order('deadline').with_attached_image
   end

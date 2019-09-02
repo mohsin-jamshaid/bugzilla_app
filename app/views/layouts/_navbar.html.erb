@@ -1,0 +1,37 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <%= link_to 'Bugzilla',root_path, class: 'navbar-brand' %>
+
+  <% if user_signed_in? %>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto"></ul>
+
+      <form class="form-inline my-2 my-lg-0">
+        <ul class="navbar-nav ml-auto nav-flex-icons">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <%= image_tag current_user.profile_pic, class: "rounded-circle z-depth-0" %>
+            </a>
+            
+            <div class="dropdown-menu dropdown-menu-right dropdown-default" aria-labelledby="navbarDropdownMenuLink-333">
+              <%= button_tag current_user.email.to_s , class: "btn btn-outline-success my-2 my-sm-0 dropdown-item", type: 'button' %>
+              
+              <%= link_to edit_user_registration_path, class: "nav-link dropdown-item" do %>
+                <i class="fas fa-user-edit"></i>
+              <% end %>
+
+              <%= link_to destroy_user_session_path, method: :delete, class: "nav-link dropdown-item" do %> 
+                <i class="fas fa-sign-out-alt"></i>
+              <% end %>
+            </div>
+          </li>
+        </ul>
+      </form>
+    </div>
+<% end %>
+</nav>
+
+<br>

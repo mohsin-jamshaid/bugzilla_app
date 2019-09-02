@@ -1,3 +1,16 @@
 // Place all the styles related to the Home controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.dropdown-item{
+  color: #ffffff;
+  background-color: #000000;
+}
+
+.dropdown-item:hover{
+  text-decoration: none;
+  background-color: #28a745;
+}
+
+.navbar-expand-lg .navbar-nav .dropdown-menu {
+    background-color: #000000;
+}

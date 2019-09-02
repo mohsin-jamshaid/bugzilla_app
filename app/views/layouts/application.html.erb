@@ -10,44 +10,17 @@
   </head>
 
   <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <%= link_to 'Bugzilla',root_path, class: 'navbar-brand' %>
+    <%= render 'layouts/navbar' %>    
 
-    <% if user_signed_in? %>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+    <div class="container" id="flash">
+      <% flash.each do |key, value| %>
+        <div class="<%= flash_class(key) %> alert-dismissible fade show">
+          <button type="button" class="close" data-dismiss="alert">×</button>
+          <%= value %>
+        </div>
+      <% end %>
 
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <%= link_to destroy_user_session_path,method: :delete, class: "nav-link" do %> 
-              <i class="fas fa-sign-out-alt"></i>
-            <% end %>
-          </li>
-          <li class="nav-item">
-            <%= link_to edit_user_registration_path, class: "nav-link" do %>
-              <i class="fas fa-user-edit"></i>
-            <% end %>
-          </li> 
-        </ul>
-
-        <form class="form-inline my-2 my-lg-0">
-         <%= button_tag current_user.email.to_s , class: "btn btn-outline-success my-2 my-sm-0", type: 'button' %>
-        </form>
-      </div>
-    <% end %>
-</nav>
-
-<br>
-  <div class="container" id="flash">
-    <% flash.each do |key, value| %>
-      <div class="<%= flash_class(key) %> alert-dismissible fade show">
-        <button type="button" class="close" data-dismiss="alert">×</button>
-        <%= value %>
-      </div>
-    <% end %>
-    <%= yield %>
-  </div>
+      <%= yield %>
+    </div>
   </body>
 </html>

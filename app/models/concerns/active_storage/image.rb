@@ -22,8 +22,8 @@ module ActiveStorage
         image.variant(resize: '50x50')
       end
 
-      def avatar
-        image.variant(resize: '40x40')
+      def profile_pic
+        avatar.variant(resize: '45x60')
       end
     end
   end

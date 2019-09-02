@@ -4,8 +4,7 @@ class User < ApplicationRecord
 
   include ActiveStorage::Image
 
-  validates :name, presence: true
-  validate :user_image_type
+  before_create :set_default_avatar
 
   enum user_type: %i[manager developer qa]
 
@@ -17,4 +16,11 @@ class User < ApplicationRecord
 
   has_many :bugs, class_name: 'Bug', foreign_key: 'creator_id', dependent: :destroy
   has_many :assigned_bugs, class_name: 'Bug', foreign_key: 'assign_to_id', dependent: :nullify
+
+  validates :name, presence: true
+  validate :user_image_type
+
+  def set_default_avatar
+    avatar.attach(io: File.open("#{Rails.root}/app/assets/images/user.png"), filename: 'user.png', content_type: 'image/png') unless avatar.attached?
+  end
 end
