@@ -1,6 +1,6 @@
 <tr id= "user-<%=user.id%>">
   <td><%= image_tag user.profile_pic, class: "rounded-circle" %></td>
   <td><%= user.name.titleize %></td>
-  <td><%= user.user_type.titleize %></td>
+  <td><%= user.qa? ? user.user_type.upcase : user.user_type.titleize %></td>
   <td><%= link_to button_tag("Remove From Project", class: "btn btn-primary"), remove_from_project_project_path(user_id: user.id), method: :delete , data: {confirm: "Are you sure?", remote: true}  %></td>
 </tr>
