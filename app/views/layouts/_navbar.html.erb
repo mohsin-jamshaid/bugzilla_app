@@ -20,11 +20,11 @@
               <%= button_tag current_user.email.to_s , class: "btn btn-outline-success my-2 my-sm-0 dropdown-item", type: 'button' %>
               
               <%= link_to edit_user_registration_path, class: "nav-link dropdown-item" do %>
-                <i class="fas fa-user-edit"></i>
+                <i class="fas fa-user-edit"></i> Edit Profile
               <% end %>
 
               <%= link_to destroy_user_session_path, method: :delete, class: "nav-link dropdown-item" do %> 
-                <i class="fas fa-sign-out-alt"></i>
+                <i class="fas fa-sign-out-alt"></i> Logout
               <% end %>
             </div>
           </li>
