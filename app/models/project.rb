@@ -5,7 +5,7 @@ class Project < ApplicationRecord
   has_many :users, through: :user_projects
   has_many :bugs, dependent: :destroy
 
-  validates :title, presence: true, uniqueness: true
+  validates :title, presence: true, uniqueness: { case_sensitive: false }
 
   validate :validate_user_type
 

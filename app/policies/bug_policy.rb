@@ -12,7 +12,7 @@ class BugPolicy < ApplicationPolicy
   end
 
   def destroy?
-    user.qa? && record.creator_id == user.id
+    update?
   end
 
   def assign_bug?
@@ -20,6 +20,6 @@ class BugPolicy < ApplicationPolicy
   end
 
   def resolve_bug?
-    user.developer? && user.projects.exists?(record.project_id)
+    assign_bug?
   end
 end

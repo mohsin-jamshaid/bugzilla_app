@@ -56,7 +56,7 @@ class BugsController < ApplicationController
       @msg = ['success', 'Bug has been successfully assigned']
 
     else
-      @msg = ['danger', 'Cannot take bug deadline already passed']
+      @msg = ['error', 'Cannot take bug deadline already passed']
     end
 
     respond_to do |format|
@@ -66,7 +66,7 @@ class BugsController < ApplicationController
   end
 
   def resolve_bug
-    @msg = @bug.set_bug_next_state! ? ['success', 'Bug is successfully resolved'] : ['danger', 'Cannot resolve bug you may have pass the deadline,wait for QA to edit the deadline']
+    @msg = @bug.set_bug_next_state! ? ['success', 'Bug is successfully resolved'] : ['error', 'Cannot resolve bug you may have passed the deadline,wait for QA to edit the deadline']
 
     respond_to do |format|
       format.js { render 'assign_bug.js.erb', layout: false }

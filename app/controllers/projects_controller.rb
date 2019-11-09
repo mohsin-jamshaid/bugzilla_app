@@ -51,11 +51,7 @@ class ProjectsController < ApplicationController
   def destroy
     @project.destroy
 
-    respond_to do |format|
-      format.json do
-        render json: {}
-      end
-    end
+    render json: { status: 'Project has been successfully destroyed' }
   end
 
   def assign_project

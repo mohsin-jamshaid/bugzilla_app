@@ -73,3 +73,5 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'font-awesome-sass', '~> 5.9.0'
 # Extension of devise gem password feature
 gem 'devise-secure_password', '~> 1.0.5'
+# For fancy messages
+gem 'toastr-rails'
