@@ -10,7 +10,7 @@ class Bug < ApplicationRecord
   belongs_to :creator, class_name: 'User'
 
   validates :title, presence: true
-  validates_uniqueness_of :title, scope: :project_id
+  validates :title, uniqueness: { scope: :project_id, case_sensitive: false }
   validates :deadline, presence: true
   validate :deadline_date_cannot_be_in_the_past
   validates :bug_type, presence: true, inclusion: { in: %w[feature bug] }

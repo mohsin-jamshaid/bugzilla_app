@@ -1,0 +1,6 @@
+<% flash[0] = :error if flash[0].to_s == "alert" %>
+<% flash[0] = :info if flash[0].to_s == "notice" %>
+
+<script type="text/javascript">
+  toastr['<%= flash[0].to_s %>']('<%= flash[1] %>');
+</script>

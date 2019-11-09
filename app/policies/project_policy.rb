@@ -8,19 +8,19 @@ class ProjectPolicy < ApplicationPolicy
   end
 
   def show?
-    user.manager? || !user.projects.find_by(id: record.id).nil?
+    (user.manager? && record.creator_id == user.id) || !user.projects.find_by(id: record.id).nil?
   end
 
   def destroy?
-    user.manager? && record.creator_id == user.id
+    update?
   end
 
   def assign_project?
-    user.manager? && record.creator_id == user.id
+    update?
   end
 
   def remove_from_project?
-    user.manager? && record.creator_id == user.id
+    update?
   end
 
   class Scope
