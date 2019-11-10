@@ -17,11 +17,9 @@
 //= require popper
 //= require bootstrap-sprockets
 //= require bootstrap
-//= require jquery
 //= require toastr
 //= require bugs
 //= require devise
-//= require destroy_project
 
 $.ajaxSetup({
   headers: {

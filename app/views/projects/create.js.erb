@@ -1,0 +1,5 @@
+$('#exampleModalCenter').modal('hide');
+
+$('.projects_table').append("<%= j (render partial: 'project', locals: {project: @project}) %>")
+
+toastr.success('Project has been created successfully');

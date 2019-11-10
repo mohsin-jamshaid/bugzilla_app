@@ -1,7 +1,7 @@
 $("#user-<%= @user.id %>").fadeOut(300, function(){
   $(this).remove();
 
-  $(".users").append("<%= j (render partial: 'non_project_users', locals: {user: @user}) %>")
+  $(".users").append("<%= j (render partial: 'non_project_users', locals: {user: @user}) %>");
 
   toastr.success("<%= @user.name.upcase %> has been successfully removed from project");
 });

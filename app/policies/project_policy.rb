@@ -33,9 +33,9 @@ class ProjectPolicy < ApplicationPolicy
 
     def resolve
       if user.manager?
-        scope.where(creator_id: user.id)
+        scope.where(creator_id: user.id).order(:created_at)
       else
-        user.projects
+        user.projects.order(:created_at)
       end
     end
   end

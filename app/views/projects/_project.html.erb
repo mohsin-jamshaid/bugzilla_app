@@ -6,11 +6,11 @@
     <% end %> &nbsp
     
     <% if current_user.manager? %>
-      <%= link_to edit_project_path(project.id), class: "text-light" do %>
+      <%= link_to edit_project_path(project.id), data: { remote: true, toggle: 'modal', target: '#exampleModalCenter' }, class: "text-light" do %>
         <i class="far fa-edit"></i>
       <% end %> &nbsp
 
-      <%= link_to 'javascript:;', class: "text-light del-project", method: :delete, data: { id: project.id} do %>
+      <%= link_to project_path(project.id), class: "text-light", data: { id: project.id, confirm: "Are you sure you want to delete this project?" , remote: true, method: 'delete' } do %>
         <i class="fa fa-trash" aria-hidden="true"></i>
       <% end %>
     <% end %> 

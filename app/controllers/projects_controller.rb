@@ -13,6 +13,10 @@ class ProjectsController < ApplicationController
     @project = Project.new
 
     authorize_project
+
+    respond_to do |format|
+      format.js { render layout: false }
+    end
   end
 
   def create
@@ -20,24 +24,20 @@ class ProjectsController < ApplicationController
 
     authorize @project
 
-    if @project.save
-      flash[:success] = 'Project has been created successfully'
-      redirect_to projects_path
-
-    else
-      render 'new'
+    respond_to do |format|
+      @project.save ? format.js { render layout: false } : format.js { render 'new.js.erb', layout: false }
     end
   end
 
-  def edit; end
+  def edit
+    respond_to do |format|
+      format.js { render layout: false }
+    end
+  end
 
   def update
-    if @project.update(project_params)
-      flash[:success] = 'Project has been updated successfully'
-      redirect_to projects_path
-
-    else
-      render 'edit'
+    respond_to do |format|
+      @project.update(project_params) ? format.js { render layout: false } : format.js { render 'edit.js.erb', layout: false }
     end
   end
 
@@ -51,7 +51,9 @@ class ProjectsController < ApplicationController
   def destroy
     @project.destroy
 
-    render json: { status: 'Project has been successfully destroyed' }
+    respond_to do |format|
+      format.js { render layout: false }
+    end
   end
 
   def assign_project
