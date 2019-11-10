@@ -3,14 +3,14 @@
   
   <% if current_user.manager? %>
     <div>
-      <%= link_to "Create New Project", new_project_path %>
+      <%= link_to button_tag("Create New Project", class: "btn btn-primary"), new_project_path, data: { remote: true, toggle: 'modal', target: '#exampleModalCenter' } %>
     </div><br>
   <% end %>
   
   <% if @projects.present? %> 
     <div class = "table-responsive"> 
       <div>
-        <table class= "table table-dark table-hover">
+        <table class= "table table-dark table-hover projects_table">
           <thead>
             <tr>
             <th>Title</th>
@@ -30,3 +30,5 @@
     <p>You've no projects yet !</p>
   <% end %>
 </div>
+
+<%= render partial: 'project_form_modal' %> 

@@ -1,0 +1,3 @@
+$(".modal-title").text("New Project");
+$('#exampleModalCenter').find('.modal-body').html('<%= j (render partial: "form", locals: {project: @project}) %>');
+$('#exampleModalCenter').modal('show');

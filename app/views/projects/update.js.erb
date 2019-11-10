@@ -1,0 +1,5 @@
+$('.projects_table').find("#project-<%= @project.id %>").replaceWith("<%= j render( partial: 'project', locals: {project: @project}) %>");
+
+$('#exampleModalCenter').modal('hide');
+
+toastr.success('Project has been updated successfully');

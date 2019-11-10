@@ -1,15 +1,12 @@
-<%= form_for @project do |f| %>
-	<%= render "devise/shared/error_messages", resource: @project %>
+<%= form_for project, remote: true do |f| %>
+	<%= render "devise/shared/error_messages", resource: project %>
 	
   <div class="form-group">
   	<%= f.label :title %><br />
-  	<%= f.text_field :title ,autofocus: true, class: "form-control" %>
+  	<%= f.text_field :title , autofocus: true, class: "form-control" %>
 	</div>	
 	
   <div class="actions">
 		<%= f.submit class: "btn btn-primary" %>
 	</div>
 <% end %>
-
-<br>
-<%= link_to "Back", projects_path %>

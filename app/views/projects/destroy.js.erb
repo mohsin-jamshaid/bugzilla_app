@@ -1,0 +1,4 @@
+$('#project-<%= @project.id %>').fadeOut(300, function(){
+  $(this).remove();
+  toastr.success("Project has been successfully deleted");
+});
