@@ -10,7 +10,7 @@
         <i class="far fa-edit"></i>
       <% end %> &nbsp
 
-      <%= link_to project_path(project.id), class: "text-light", data: { id: project.id, confirm: "Are you sure you want to delete this project?" , remote: true, method: 'delete' } do %>
+      <%= link_to 'javascript:void(0)', class: "text-light del-project", data: { id: project.id } do %>
         <i class="fa fa-trash" aria-hidden="true"></i>
       <% end %>
     <% end %> 

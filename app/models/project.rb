@@ -9,9 +9,15 @@ class Project < ApplicationRecord
 
   validate :validate_user_type
 
+  after_destroy_commit :remove_destroyed_row
+
   private
 
   def validate_user_type
     errors.add(:user_type, 'not valid to create a project') if creator && !creator.manager?
+  end
+
+  def remove_destroyed_row
+    ActionCable.server.broadcast 'project_channel', id: id
   end
 end

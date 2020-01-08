@@ -20,6 +20,8 @@
 //= require toastr
 //= require bugs
 //= require devise
+//= require destroy_project
+//= require cable
 
 $.ajaxSetup({
   headers: {

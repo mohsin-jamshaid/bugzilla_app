@@ -50,10 +50,7 @@ class ProjectsController < ApplicationController
 
   def destroy
     @project.destroy
-
-    respond_to do |format|
-      format.js { render layout: false }
-    end
+    render json: { head: :no_content }
   end
 
   def assign_project
